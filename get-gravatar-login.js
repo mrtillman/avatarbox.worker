@@ -1,24 +1,25 @@
-// Use this code snippet in your app.
-// If you need more information about configurations or implementing the sample code, visit the AWS docs:
-// https://aws.amazon.com/developers/getting-started/nodejs/
-
-// Load the AWS SDK
-var AWS = require('@aws-sdk/client-secrets-manager'),
-    region = "us-east-1",
-    secretName = "demo/gravatar-login",
-    secret,
-    decodedBinarySecret;
-
-// Create a Secrets Manager client
-var client = new AWS.SecretsManager({
-    region: region
-});
-
-// In this sample we only handle the specific exceptions for the 'GetSecretValue' API.
-// See https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
-// We rethrow the exception by default.
-
 module.exports = function getGravatarLogin(){
+
+  // Use this code snippet in your app.
+  // If you need more information about configurations or implementing the sample code, visit the AWS docs:
+  // https://aws.amazon.com/developers/getting-started/nodejs/
+
+  // Load the AWS SDK
+  var AWS = require('@aws-sdk/client-secrets-manager'),
+  region = "us-east-1",
+  secretName = "demo/gravatar-login",
+  secret,
+  decodedBinarySecret;
+
+  // Create a Secrets Manager client
+  var client = new AWS.SecretsManager({
+    region: region
+  });
+
+  // In this sample we only handle the specific exceptions for the 'GetSecretValue' API.
+  // See https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
+  // We rethrow the exception by default.
+
   return new Promise((resolve, reject) => {
     client.getSecretValue({SecretId: secretName}, function(err, data) {
         if (err) {
@@ -53,7 +54,7 @@ module.exports = function getGravatarLogin(){
                 decodedBinarySecret = buff.toString('ascii');
             }
         }
-        
+
         resolve(JSON.parse(secret));
 
     });
