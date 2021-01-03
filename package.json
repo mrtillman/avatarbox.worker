@@ -9,7 +9,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "zip": "zip -r rotate-gravatar.zip .",
+    "zip": "rm -rf rotate-gravatar.zip && zip -r rotate-gravatar.zip .",
     "deploy": "aws lambda update-function-code --function-name rotate-gravatar --zip-file fileb://rotate-gravatar.zip"
   },
   "repository": {
