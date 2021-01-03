@@ -1,0 +1,30 @@
+{
+  "name": "rotate-gravatar",
+  "version": "1.0.0",
+  "description": "An AWS Lambda function to rotate your Gravatar icon",
+  "main": "index.js",
+  "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.1.0",
+    "grav.client": "^2.4.19"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "zip": "zip -r rotate-gravatar.zip .",
+    "deploy": "aws lambda update-function-code --function-name rotate-gravatar --zip-file fileb://rotate-gravatar.zip"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrtillman/aws-rotate-gravatar.git"
+  },
+  "keywords": [
+    "aws",
+    "lambda",
+    "gravatar"
+  ],
+  "author": "mrtillman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mrtillman/aws-rotate-gravatar/issues"
+  },
+  "homepage": "https://github.com/mrtillman/aws-rotate-gravatar#readme"
+}
