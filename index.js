@@ -8,15 +8,21 @@ const handler = async (event, context) => {
 
   try {
 
+    console.log('getting Gravatar login...');
+
     const { email, password } = await getGravatarLogin();
     
+    console.log('initializing Gravatar client...');
+
     const useCase = new LoadNextImageUseCase();
 
     useCase.client = new GravatarClient(email, password);
 
+    console.log('loading next Gravatar icon...');
+
     const result = await useCase.execute();
 
-    console.log(result);
+    console.log('loaded new Gravatar icon:\n', result);
 
   } catch (err) {
     console.log(err);
