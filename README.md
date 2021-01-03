@@ -24,4 +24,4 @@ $ npm run deploy
 
 ## License
 
-[MIT](https://github.com/mrtillman/aws-rotate-gravatar/blob/master/LICENSE.md)
+[MIT](https://github.com/mrtillman/aws-rotate-gravatar/blob/main/LICENSE)
