@@ -1,14 +1,14 @@
-# aws-rotate-gravatar
+# aws-update-gravatar
 
-An AWS Lambda function to rotate your Gravatar icon
+An AWS Lambda function to update your Gravatar icon
 
 ---
 
 ## Installation
 
 ```sh
-$ git clone https://github.com/mrtillman/aws-rotate-gravatar.git
-$ cd aws-rotate-gravatar
+$ git clone https://github.com/mrtillman/aws-update-gravatar.git
+$ cd aws-update-gravatar
 $ npm install
 ```
 
@@ -24,4 +24,4 @@ $ npm run deploy
 
 ## License
 
-[MIT](https://github.com/mrtillman/aws-rotate-gravatar/blob/main/LICENSE)
+[MIT](https://github.com/mrtillman/aws-update-gravatar/blob/main/LICENSE)
