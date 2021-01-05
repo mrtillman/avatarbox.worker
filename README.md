@@ -71,13 +71,15 @@ $ npm run deploy
 |Threshold|Errors >= 1 for 1 datapoints within 5 minutes|
 |Type|Metric|
 
-## References
+## Credits
 
 [Configuring the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
 
 [What Is AWS Secrets Manager?](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
 
 [Tutorial: Using AWS Lambda with scheduled events](https://docs.aws.amazon.com/lambda/latest/dg/services-cloudwatchevents-tutorial.html)
+
+[Creating a rule for an AWS service](https://docs.aws.amazon.com/eventbridge/latest/userguide/create-eventbridge-rule.html)
 
 [Schedule Expressions for Rules](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html)
 
