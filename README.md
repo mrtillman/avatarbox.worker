@@ -77,6 +77,8 @@ $ npm run deploy
 
 [What Is AWS Secrets Manager?](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
 
+[Building Lambda functions with Node.js](https://docs.aws.amazon.com/lambda/latest/dg/lambda-nodejs.html)
+
 [Tutorial: Using AWS Lambda with scheduled events](https://docs.aws.amazon.com/lambda/latest/dg/services-cloudwatchevents-tutorial.html)
 
 [Creating a rule for an AWS service](https://docs.aws.amazon.com/eventbridge/latest/userguide/create-eventbridge-rule.html)
