@@ -12,19 +12,16 @@ An AWS Lambda function to update your Gravatar icon
     - sign in as an IAM user
     - must have access key ID and secret access key
     - configure AWS CLI
-3. AWS Lambda function named `update-gravatar`
+3. AWS Secrets Manager secret named `demo/gravatar-login`
+    - type: Other
+    - key: email, value: your Gravatar email address
+    - key: password, value: your Gravatar password
+4. AWS Lambda function named `update-gravatar`
     - set Timeout to 30 seconds
     - must have IAM role assigned that includes:
       - `SecretsManagerReadWrite`
       - `CloudWatchLogsFullAccess`
       - `AmazonEventBridgeFullAccess`
-4. AWS Secrets Manager secret named `demo/gravatar-login`
-    - type: Other
-    - key: email, value: your Gravatar email address
-    - key: password, value: your Gravatar password
-
-5. Node.js 12.x
-    - must match the Lambda function's runtime
 
 ## Installation
 
