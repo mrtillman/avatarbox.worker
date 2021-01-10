@@ -4,7 +4,7 @@ const {
 
 const getGravatarLogin = require('./get-gravatar-login');
 
-const handler = async (event, context) => {
+const handler = async () => {
 
   try {
 
