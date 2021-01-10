@@ -21,7 +21,6 @@ An AWS Lambda function to update your Gravatar icon
     - must have IAM role assigned that includes:
       - `SecretsManagerReadWrite`
       - `CloudWatchLogsFullAccess`
-      - `AmazonEventBridgeFullAccess`
 
 ## Installation
 
@@ -45,7 +44,7 @@ $ npm run deploy
 
 |Setting|Description|
 |---|---|
-|Event schedule | `cron(0 10 * * ? *)`|
+|Event schedule | Cron expression: `0 10 * * ? *`|
 |Target | Lambda function: `update-gravatar`|
 
 ### SNS Topic
