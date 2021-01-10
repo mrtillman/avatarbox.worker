@@ -9,7 +9,7 @@ An AWS Lambda function to update your Gravatar icon
 1. Gravatar account
     - must have 2 or more images
 2. AWS account
-    - sign in as IAM user
+    - sign in as an IAM user
     - must have access key ID and secret access key
     - configure AWS CLI
 3. AWS Lambda function named `update-gravatar`
@@ -71,7 +71,7 @@ $ npm run deploy
 |Threshold|Errors >= 1 for 1 datapoints within 5 minutes|
 |Type|Metric|
 
-## Credits
+## Sources
 
 [Configuring the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
 
