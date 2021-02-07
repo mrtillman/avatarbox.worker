@@ -6,12 +6,13 @@ hourly update routine for avatarbox.io
 
 ## Checklist
 
-1. Create an AWS Lambda function named `avbx-publisher`, and assign the `AvbxPublisherRole` which includes the following IAM policies:
-
-    - `AmazonSQSFullAccess`
-    - `CloudWatchFullAccess`
-    - `AmazonDynamoDBFullAccess`
-    - `AWSLambdaBasicExecutionRole`
+1. Create an AWS Lambda function named `avbx-publisher`, 
+    - set Timeout to 30 seconds
+    - assign the `AvbxPublisherRole` which includes the following IAM policies:
+      - `AmazonSQSFullAccess`
+      - `AmazonDynamoDBFullAccess`
+      - `CloudWatchLogsFullAccess`
+      - `AWSLambdaSQSQueueExecutionRole`
 
 2. Configure the Lambda environment variables:
 
@@ -33,10 +34,9 @@ $ cd avatarbox.publisher && npm install
 ```sh
 # zip code + dependencies
 $ npm run zip
-
-# deploy to AWS Lambda
-$ npm run deploy
 ```
+
+Upload `avbx-publisher.zip` to S3 for use in the `avbx-publisher` Lambda function.
 
 ### EventBridge Rule
 
@@ -60,9 +60,11 @@ $ npm run deploy
 |---|---|
 |FunctionName|avbx-publisher|
 |Metric name|Errors|
-|Notification Action|When in alarm, send message to topic "gravatar-updates"|
+|Notification Action|When in alarm, send message to topic "avatarbox"|
 |Statistic|Sum|
 |Threshold|Errors >= 1 for 1 datapoints within 5 minutes|
 |Type|Metric|
+
+---
 
 [MIT](https://github.com/mrtillman/avatarbox.publisher/blob/main/LICENSE)

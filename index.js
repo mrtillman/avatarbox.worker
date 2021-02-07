@@ -6,23 +6,21 @@ const handler = async () => {
     
     const client = new AvbxGravatarClient();
 
-    console.log('collecting all Gravatars not updated in 24 hours...');
+    console.info('collecting all Gravatars not updated in the last 24 hours...');
 
     const emails = await client.collect();
 
-    const emailCount = emails.length;
-
-    if(!emailCount){
-      console.error('no Gravatars found');
+    if(!emails){
+      console.info('no Gravatars found');
       return;
     }
 
     emails.forEach(client.touch.bind(client))
 
-    console.error(`found ${emailCount} Gravatars`);
+    console.info(`found ${emails.length} Gravatars`);
 
   } catch (err) {
-    console.log(err);
+    console.error(err);
     throw err;
   }
 

@@ -7,8 +7,7 @@
     "avatarbox.sdk": "file:../sdk"
   },
   "scripts": {
-    "zip": "rm -f avbx-publisher.zip && zip -r avbx-publisher.zip .",
-    "deploy": "aws lambda update-function-code --function-name avbx-publisher --zip-file fileb://avbx-publisher.zip"
+    "zip": "rm -f avbx-publisher.zip && zip -r avbx-publisher.zip ."
   },
   "repository": {
     "type": "git",
