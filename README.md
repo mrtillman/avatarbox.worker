@@ -1,17 +1,17 @@
 # avatarbox.publisher
 
-hourly update routine for avatarbox.io
+hourly update routine for [avatarbox.io](https://avatarbox.io)
 
 ---
 
 ## Checklist
 
-1. Create an AWS Lambda function named `avbx-publisher`, 
+1. Create an AWS Lambda function named `avbx-publisher`.
     - set Timeout to 30 seconds
     - assign the `AvbxPublisherRole` which includes the following IAM policies:
       - `AmazonSQSFullAccess`
       - `AmazonDynamoDBFullAccess`
-      - `CloudWatchLogsFullAccess`
+      - `CloudWatchFullAccess`
       - `AWSLambdaSQSQueueExecutionRole`
 
 2. Configure the Lambda environment variables:
