@@ -1,28 +1,25 @@
-const { 
-  GravatarClient, LoadNextImageUseCase
-} = require('grav.client');
-
-const getGravatarLogin = require('./get-gravatar-login');
+const { AvbxGravatarClient } = require('avatarbox.sdk');
 
 const handler = async () => {
 
   try {
-
-    console.log('getting Gravatar login...');
-
-    const { email, password } = await getGravatarLogin();
     
-    console.log('initializing Gravatar client...');
+    const client = new AvbxGravatarClient();
 
-    const useCase = new LoadNextImageUseCase();
+    console.log('collecting all Gravatars not updated in 24 hours...');
 
-    useCase.client = new GravatarClient(email, password);
+    const emails = await client.collect();
 
-    console.log('loading next Gravatar icon...');
+    const emailCount = emails.length;
 
-    const result = await useCase.execute();
+    if(!emailCount){
+      console.error('no Gravatars found');
+      return;
+    }
 
-    console.log('loaded new Gravatar icon:\n', result);
+    emails.forEach(client.touch.bind(client))
+
+    console.error(`found ${emailCount} Gravatars`);
 
   } catch (err) {
     console.log(err);

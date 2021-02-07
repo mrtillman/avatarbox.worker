@@ -1,20 +1,18 @@
 {
-  "name": "update-gravatar",
+  "name": "avatarbox.publisher",
   "version": "1.0.0",
-  "description": "An AWS Lambda function to update your Gravatar icon",
+  "description": "hourly update routine for avatarbox.io",
   "main": "index.js",
   "dependencies": {
-    "@aws-sdk/client-secrets-manager": "^3.1.0",
-    "grav.client": "^2.4.19"
+    "avatarbox.sdk": "file:../sdk"
   },
-  "devDependencies": {},
   "scripts": {
-    "zip": "rm -f update-gravatar.zip && zip -r update-gravatar.zip .",
-    "deploy": "aws lambda update-function-code --function-name update-gravatar --zip-file fileb://update-gravatar.zip"
+    "zip": "rm -f avbx-publisher.zip && zip -r avbx-publisher.zip .",
+    "deploy": "aws lambda update-function-code --function-name avbx-publisher --zip-file fileb://avbx-publisher.zip"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mrtillman/aws-update-gravatar.git"
+    "url": "git+https://github.com/mrtillman/avatarbox.publisher.git"
   },
   "keywords": [
     "aws",
@@ -24,7 +22,7 @@
   "author": "mrtillman",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mrtillman/aws-update-gravatar/issues"
+    "url": "https://github.com/mrtillman/avatarbox.publisher/issues"
   },
-  "homepage": "https://github.com/mrtillman/aws-update-gravatar#readme"
+  "homepage": "https://github.com/mrtillman/avatarbox.publisher#readme"
 }

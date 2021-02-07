@@ -1,33 +1,31 @@
-# aws-update-gravatar
+# avatarbox.publisher
 
-An AWS Lambda function to update your Gravatar icon
+hourly update routine for avatarbox.io
 
 ---
 
 ## Checklist
 
-1. Gravatar account
-    - must have 2 or more images
-2. AWS account
-    - sign in as an IAM user
-    - must have access key ID and secret access key
-    - configure AWS CLI
-3. AWS Secrets Manager secret named `demo/gravatar-login`
-    - type: Other
-    - key: email, value: your Gravatar email address
-    - key: password, value: your Gravatar password
-4. AWS Lambda function named `update-gravatar`
-    - set Timeout to 30 seconds
-    - must have IAM role assigned that includes:
-      - `SecretsManagerReadWrite`
-      - `CloudWatchLogsFullAccess`
+1. Create an AWS Lambda function named `avbx-publisher`, and assign the `AvbxPublisherRole` which includes the following IAM policies:
+
+    - `AmazonSQSFullAccess`
+    - `CloudWatchFullAccess`
+    - `AmazonDynamoDBFullAccess`
+    - `AWSLambdaBasicExecutionRole`
+
+2. Configure the Lambda environment variables:
+
+    ```sh
+    KMS_KEY_ID={YOUR-KMS-KEY-ID}
+    REGION=us-east-1
+    QUEUE_URL={YOUR-SQS-QUEUE-URL}
+    ```
 
 ## Installation
 
 ```sh
-$ git clone https://github.com/mrtillman/aws-update-gravatar.git
-$ cd aws-update-gravatar
-$ npm install
+$ git clone https://github.com/mrtillman/avatarbox.publisher.git
+$ cd avatarbox.publisher && npm install
 ```
 
 ## Usage
@@ -44,15 +42,15 @@ $ npm run deploy
 
 |Setting|Description|
 |---|---|
-|Event schedule | Cron expression: `0 10 * * ? *`|
-|Target | Lambda function: `update-gravatar`|
+|Event schedule | Cron expression: `0 * * * ? *`|
+|Target | Lambda function: `avbx-publisher`|
 
 ### SNS Topic
 
 |Setting|Description|
 |---|---|
 |Endpoint|Your email address|
-|Name| `gravatar-updates`|
+|Name| `avatarbox`|
 |Protocol|Email|
 |Type| Standard|
 
@@ -60,30 +58,11 @@ $ npm run deploy
 
 |Setting|Description|
 |---|---|
-|FunctionName|update-gravatar|
+|FunctionName|avbx-publisher|
 |Metric name|Errors|
 |Notification Action|When in alarm, send message to topic "gravatar-updates"|
 |Statistic|Sum|
 |Threshold|Errors >= 1 for 1 datapoints within 5 minutes|
 |Type|Metric|
 
-## Sources
-
-[Configuring the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
-
-[What Is AWS Secrets Manager?](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
-
-[Building Lambda functions with Node.js](https://docs.aws.amazon.com/lambda/latest/dg/lambda-nodejs.html)
-
-[Tutorial: Using AWS Lambda with scheduled events](https://docs.aws.amazon.com/lambda/latest/dg/services-cloudwatchevents-tutorial.html)
-
-[Creating a rule for an AWS service](https://docs.aws.amazon.com/eventbridge/latest/userguide/create-eventbridge-rule.html)
-
-[Schedule Expressions for Rules](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html)
-
-[Using Amazon CloudWatch Alarms](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html)
-
-
-## License
-
-[MIT](https://github.com/mrtillman/aws-update-gravatar/blob/main/LICENSE)
+[MIT](https://github.com/mrtillman/avatarbox.publisher/blob/main/LICENSE)
