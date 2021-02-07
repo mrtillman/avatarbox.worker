@@ -1,20 +1,22 @@
-# avatarbox.publisher
+# avatarbox.worker
 
-hourly update routine for [avatarbox.io](https://avatarbox.io)
+avatar icon updater for [avatarbox.io](https://avatarbox.io)
 
 ---
 
 ## Checklist
 
-1. Create an AWS Lambda function named `avbx-publisher`.
+1. Same KMS Symmetric Key from [avatarbox.sdk](https://github.com/mrtillman/avatarbox.sdk)
+2. Same SQS URL from *avatarbox.sdk*
+3. AWS Lambda function named `avbx-worker`
     - set Timeout to 30 seconds
-    - assign the `AvbxPublisherRole` which includes the following IAM policies:
+    - assign the `AvbxWorkerRole` which includes the following IAM policies:
       - `AmazonSQSFullAccess`
       - `AmazonDynamoDBFullAccess`
       - `CloudWatchFullAccess`
-      - `AWSLambdaSQSQueueExecutionRole`
+      - `AWSLambdaBasicExecutionRole`
 
-2. Configure the Lambda environment variables:
+4. Lambda environment variables:
 
     ```sh
     KMS_KEY_ID={YOUR-KMS-KEY-ID}
@@ -25,8 +27,8 @@ hourly update routine for [avatarbox.io](https://avatarbox.io)
 ## Installation
 
 ```sh
-$ git clone https://github.com/mrtillman/avatarbox.publisher.git
-$ cd avatarbox.publisher && npm install
+$ git clone https://github.com/mrtillman/avatarbox.worker.git
+$ cd avatarbox.worker && npm install
 ```
 
 ## Usage
@@ -36,14 +38,7 @@ $ cd avatarbox.publisher && npm install
 $ npm run zip
 ```
 
-Upload `avbx-publisher.zip` to S3 for use in the `avbx-publisher` Lambda function.
-
-### EventBridge Rule
-
-|Setting|Description|
-|---|---|
-|Event schedule | Cron expression: `0 * * * ? *`|
-|Target | Lambda function: `avbx-publisher`|
+Upload `avbx-worker.zip` to S3, and retain the S3 URI so you can define the `avbx-worker` Lambda function.
 
 ### SNS Topic
 
@@ -58,7 +53,7 @@ Upload `avbx-publisher.zip` to S3 for use in the `avbx-publisher` Lambda functio
 
 |Setting|Description|
 |---|---|
-|FunctionName|avbx-publisher|
+|FunctionName|avbx-worker|
 |Metric name|Errors|
 |Notification Action|When in alarm, send message to topic "avatarbox"|
 |Statistic|Sum|
@@ -67,4 +62,4 @@ Upload `avbx-publisher.zip` to S3 for use in the `avbx-publisher` Lambda functio
 
 ---
 
-[MIT](https://github.com/mrtillman/avatarbox.publisher/blob/main/LICENSE)
+[MIT](https://github.com/mrtillman/avatarbox.worker/blob/main/LICENSE)

@@ -1,26 +1,35 @@
-const { AvbxGravatarClient } = require('avatarbox.sdk');
+const { 
+  AvbxGravatarClient, 
+  LoadNextImageUseCase 
+} = require('avatarbox.sdk');
 
-const handler = async () => {
+const handler = async (event) => {
+  
+  if(!event || !event.Records){
+    console.log('no records found. aborting...');
+    return;
+  }
+
+  const client = new AvbxGravatarClient();
+
+  const useCase = new LoadNextImageUseCase();
+
+  const record = event.Records.shift();
+
+  const email = record.body;
 
   try {
+    useCase.client = await client.fetch(email);
+    await useCase.execute();
     
-    const client = new AvbxGravatarClient();
+    // TODO: image compare
+    //       push message to front-end via web sockets API
 
-    console.info('collecting all Gravatars not updated in the last 24 hours...');
-
-    const emails = await client.collect();
-
-    if(!emails){
-      console.info('no Gravatars found');
-      return;
-    }
-
-    emails.forEach(client.touch.bind(client))
-
-    console.info(`found ${emails.length} Gravatars`);
-
+    await client.renew(email);
   } catch (err) {
-    console.error(err);
+    console.error('update failed: ', err);
+    await client.off(email);
+    // TODO: notify user via SES message
     throw err;
   }
 

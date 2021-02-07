@@ -1,17 +1,17 @@
 {
-  "name": "avatarbox.publisher",
+  "name": "avatarbox.worker",
   "version": "1.0.0",
-  "description": "hourly update routine for avatarbox.io",
+  "description": "avatar icon updater for avatarbox.io",
   "main": "index.js",
   "dependencies": {
     "avatarbox.sdk": "file:../sdk"
   },
   "scripts": {
-    "zip": "rm -f avbx-publisher.zip && zip -r avbx-publisher.zip ."
+    "zip": "rm -f avbx-worker.zip && zip -r avbx-worker.zip ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mrtillman/avatarbox.publisher.git"
+    "url": "git+https://github.com/mrtillman/avatarbox.worker.git"
   },
   "keywords": [
     "aws",
@@ -21,7 +21,7 @@
   "author": "mrtillman",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mrtillman/avatarbox.publisher/issues"
+    "url": "https://github.com/mrtillman/avatarbox.worker/issues"
   },
-  "homepage": "https://github.com/mrtillman/avatarbox.publisher#readme"
+  "homepage": "https://github.com/mrtillman/avatarbox.worker#readme"
 }
