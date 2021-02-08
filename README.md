@@ -60,6 +60,8 @@ Upload `avbx-worker.zip` to S3, and retain the S3 URI so you can define the `avb
 |Threshold|Errors >= 1 for 1 datapoints within 5 minutes|
 |Type|Metric|
 
+## License
+
 ---
 
 [MIT](https://github.com/mrtillman/avatarbox.worker/blob/main/LICENSE)
