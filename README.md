@@ -62,6 +62,4 @@ Upload `avbx-worker.zip` to S3, and retain the S3 URI so you can define the `avb
 
 ## License
 
----
-
 [MIT](https://github.com/mrtillman/avatarbox.worker/blob/main/LICENSE)
