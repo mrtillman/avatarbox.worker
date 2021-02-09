@@ -6,7 +6,7 @@ avatar icon updater for [avatarbox.io](https://avatarbox.io)
 
 ## Description
 
-**avatarbox.worker** is a Lambda function that updates Gravatar icons. This function subscribes to an SQS topic that avatarbox.publisher writes to.
+**avatarbox.worker** is a Lambda function that updates Gravatar icons. This function subscribes to an SQS topic that [avatarbox.publisher](https://github.com/mrtillman/avatarbox.publisher) writes to.
 
 ## Checklist
 
