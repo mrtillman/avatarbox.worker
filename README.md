@@ -4,6 +4,10 @@ avatar icon updater for [avatarbox.io](https://avatarbox.io)
 
 ---
 
+## Description
+
+**avatarbox.worker** is a Lambda function that updates Gravatar icons. This function subscribes to an SQS topic that avatarbox.publisher writes to.
+
 ## Checklist
 
 1. Same KMS Symmetric Key from [avatarbox.sdk](https://github.com/mrtillman/avatarbox.sdk)
