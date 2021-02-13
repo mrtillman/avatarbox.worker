@@ -29,7 +29,9 @@ const handler = async (event) => {
   } catch (err) {
     console.error('update failed: ', err);
     await client.off(email);
+    
     // TODO: notify user via SES message
+
     throw err;
   }
 
