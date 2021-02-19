@@ -15,10 +15,11 @@ avatar icon updater for [avatarbox.io](https://avatarbox.io)
 3. AWS Lambda function named `avbx-worker`
     - set Timeout to 30 seconds
     - assign the `AvbxWorkerRole` which includes the following IAM policies:
+      - `AmazonS3FullAccess`
       - `AmazonSQSFullAccess`
       - `AmazonDynamoDBFullAccess`
-      - `CloudWatchFullAccess`
       - `AWSLambdaBasicExecutionRole`
+      - `CloudWatchFullAccess`
 
 4. Lambda environment variables:
 
