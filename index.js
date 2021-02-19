@@ -20,12 +20,16 @@ const handler = async (event) => {
 
   try {
     useCase.client = await client.fetch(email);
-    await useCase.execute();
-    
+    const result = await useCase.execute();
+    const imageUrl = `${result.url.replace("http", "https")}?size=450`;
+
     // TODO: image compare
     //       push message to front-end via web sockets API
 
-    await client.renew(email);
+    await client.reset({
+      email,
+      imageUrl
+    })
   } catch (err) {
     console.error('update failed: ', err);
     await client.off(email);
