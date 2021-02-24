@@ -6,7 +6,7 @@ const {
 const handler = async (event) => {
   
   if(!event || !event.Records){
-    console.log('no records found. aborting...');
+    console.info('ping!');
     return;
   }
 
@@ -21,7 +21,7 @@ const handler = async (event) => {
   try {
     useCase.client = await client.fetch(email);
     const result = await useCase.execute();
-    const imageUrl = `${result.url.replace("http", "https")}?size=450`;
+    const imageUrl = `${result.url.replace("http:", "https:")}?size=450`;
 
     // TODO: image compare
     //       push message to front-end via web sockets API
