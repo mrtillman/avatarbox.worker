@@ -10,9 +10,10 @@ avatar icon updater for [avatarbox.io](https://avatarbox.io)
 
 ## Checklist
 
-1. Same KMS Symmetric Key from [avatarbox.sdk](https://github.com/mrtillman/avatarbox.sdk)
-2. Same SQS URL from *avatarbox.sdk*
-3. AWS Lambda function named `avbx-worker`
+1. EventBridge Pre-Warm Rule <sup>a.</sup>
+2. Same KMS Symmetric Key from [avatarbox.sdk](https://github.com/mrtillman/avatarbox.sdk)
+3. Same SQS URL from *avatarbox.sdk*
+5. AWS Lambda function named `avbx-worker`
     - set Timeout to 30 seconds
     - assign the `AvbxWorkerRole` which includes the following IAM policies:
       - `AmazonS3FullAccess`
@@ -21,13 +22,14 @@ avatar icon updater for [avatarbox.io](https://avatarbox.io)
       - `AWSLambdaBasicExecutionRole`
       - `CloudWatchFullAccess`
 
-4. Lambda environment variables:
+5. Lambda environment variables:
 
     ```sh
     KMS_KEY_ID={YOUR-KMS-KEY-ID}
     REGION=us-east-1
     QUEUE_URL={YOUR-SQS-QUEUE-URL}
     ```
+> a. To avoid [cold start issues](https://github.com/mrtillman/avatarbox.worker/wiki/Resolving-Cold-Start-Issues), set up an EventBridge rule that triggers `avbx-worker` periodically.
 
 ## Installation
 
