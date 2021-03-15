@@ -4,7 +4,8 @@
   "description": "avatar icon updater for avatarbox.io",
   "main": "index.js",
   "dependencies": {
-    "avatarbox.sdk": "file:../sdk"
+    "avatarbox.sdk": "0.0.6",
+    "pusher": "^5.0.0"
   },
   "scripts": {
     "zip": "rm -f avbx-worker.zip && zip -r avbx-worker.zip ."
@@ -23,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/mrtillman/avatarbox.worker/issues"
   },
-  "homepage": "https://github.com/mrtillman/avatarbox.worker#readme"
+  "homepage": "https://github.com/mrtillman/avatarbox.worker#readme",
+  "devDependencies": {
+    "@types/mysql": "^2.15.18"
+  }
 }

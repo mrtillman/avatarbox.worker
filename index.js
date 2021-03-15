@@ -2,6 +2,7 @@ const {
   AvbxGravatarClient, 
   LoadNextImageUseCase 
 } = require('avatarbox.sdk');
+const PusherClient = require('./pusher.client');
 
 const handler = async (event) => {
   
@@ -23,8 +24,11 @@ const handler = async (event) => {
     const result = await useCase.execute();
     const imageUrl = `${result.url.replace("http:", "https:")}?size=450`;
 
-    // TODO: image compare
-    //       push message to front-end via web sockets API
+    //TODO: image compare
+
+    const pusher = new PusherClient(useCase.client.emailHash);
+    
+    pusher.send("Your Gravatar was updated!");
 
     await client.reset({
       email,
