@@ -4,7 +4,7 @@
   "description": "avatar icon updater for avatarbox.io",
   "main": "index.js",
   "dependencies": {
-    "avatarbox.sdk": "0.0.6",
+    "avatarbox.sdk": "0.0.7",
     "pusher": "^5.0.0"
   },
   "scripts": {
