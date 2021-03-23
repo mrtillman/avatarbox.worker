@@ -11,32 +11,35 @@ const handler = async (event) => {
     return;
   }
 
-  const client = new AvbxGravatarClient();
+  const avbx = new AvbxGravatarClient();
 
   const useCase = new LoadNextImageUseCase();
 
   const record = event.Records.shift();
 
-  const email = record.body;
+  const id = record.body.toString();
 
   try {
-    useCase.client = await client.fetch(email);
+
+    useCase.client = await avbx.fetch(id);
     const result = await useCase.execute();
     const imageUrl = `${result.url.replace("http:", "https:")}?size=450`;
-
+    
     //TODO: image compare
 
     const pusher = new PusherClient(useCase.client.emailHash);
     
     pusher.send("Your Gravatar was updated!");
 
-    await client.reset({
-      email,
+    await avbx.reset({
+      email: useCase.client.email,
       imageUrl
     })
+    
   } catch (err) {
     console.error('update failed: ', err);
-    await client.off(email);
+    const user = await avbx.user.findById(id);
+    await avbx.off(user.email);
     
     // TODO: notify user via SES message
 
