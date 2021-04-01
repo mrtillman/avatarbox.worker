@@ -6,7 +6,7 @@ avatar icon updater for [avatarbox.io](https://avatarbox.io)
 
 ## Description
 
-**avatarbox.worker** is a Lambda function that consumes messages from the `avbx-worker-queue` that [avatarbox.publisher](https://github.com/mrtillman/avatarbox.publisher) writes to. Upon receiving a message, this function updates a single Gravatar icon.
+**avatarbox.worker** is a Lambda function that consumes messages from the `avbx-worker-queue` that [avatarbox.publisher](https://github.com/mrtillman/avatarbox.publisher) writes to. Upon receiving a message, this function updates one or more Gravatar icons.
 
 ## Checklist
 
