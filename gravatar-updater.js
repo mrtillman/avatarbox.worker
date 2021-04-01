@@ -9,22 +9,23 @@ class GravatarUpdater {
   constructor(){
     this.avbx = new AvbxGravatarClient();
     this.useCase = new LoadNextImageUseCase();
+    this.shouldNotifyUser = true;
   }
   update(id){
     const { avbx, useCase } = this;
     return avbx.fetch(id)
           .then(loadNextImg)
-          .then(getResult)
+          .then(getResult.bind(this))
           .then(resetAvbxIcon)
           .then(sendPusherNotification)
-          .catch(handleError);
-
+          .catch(handleError.bind(this));
     function loadNextImg(client) {
       if(!client) throw new Error(`user \"${id}\" not found`);
       useCase.client = client;
       return useCase.execute();
     }
     function getResult(result) {
+      this.shouldNotifyUser = false;
       return {
         imageUrl: `${result.url.replace("http:", "https:")}?size=450`,
         emailHash: useCase.client.emailHash,
@@ -39,13 +40,11 @@ class GravatarUpdater {
       const pusher = new PusherClient(result.emailHash);
       pusher.send("Your Gravatar was updated!");
     }
-    async function handleError(err){
-      if(!isNaN(id)){
-        const user = await avbx.user.findById(id);
-        if(user) {
-          await avbx.off(user.email);
-          // TODO: notify user via SES
-        }
+    function handleError(err){
+      if(useCase.client && this.shouldNotifyUser){
+        const { email } = useCase.client;
+        avbx.off(email);
+        // TODO: notify user via SES
       }
       throw err;
     }
