@@ -1,50 +1,22 @@
-const { 
-  AvbxGravatarClient, 
-  LoadNextImageUseCase 
-} = require('avatarbox.sdk');
-const PusherClient = require('./pusher.client');
+const { GravatarUpdater } = require('./gravatar-updater');
 
-const handler = async (event) => {
+const handler = (event) => {
   
   if(!event || !event.Records){
     console.info('ping!');
     return;
   }
 
-  const avbx = new AvbxGravatarClient();
-
-  const useCase = new LoadNextImageUseCase();
-
-  const record = event.Records.shift();
-
-  const id = record.body.toString();
-
-  try {
-
-    useCase.client = await avbx.fetch(id);
-    const result = await useCase.execute();
-    const imageUrl = `${result.url.replace("http:", "https:")}?size=450`;
-    
-    //TODO: image compare
-
-    const pusher = new PusherClient(useCase.client.emailHash);
-    
-    pusher.send("Your Gravatar was updated!");
-
-    await avbx.reset({
-      email: useCase.client.email,
-      imageUrl
+  Promise.all(
+    event.Records.map(record => {
+      if(!record.body) return;
+      const gravatarUpdater = new GravatarUpdater();
+      return gravatarUpdater.update(record.body.toString());
     })
-    
-  } catch (err) {
+  ).catch(err => {
     console.error('update failed: ', err);
-    const user = await avbx.user.findById(id);
-    await avbx.off(user.email);
-    
-    // TODO: notify user via SES message
-
     throw err;
-  }
+  });
 
 };
 
