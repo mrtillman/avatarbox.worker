@@ -10,6 +10,8 @@ const handler = (event) => {
   Promise.all(
     event.Records.map(record => {
       if(!record.body) return;
+      const { id, source } = record.body;
+      // TODO: handle when source = twitter/gravatar
       const gravatarUpdater = new GravatarUpdater();
       return gravatarUpdater.update(record.body.toString());
     })
