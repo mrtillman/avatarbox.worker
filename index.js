@@ -1,5 +1,5 @@
 // TODO: clean up / refactor
-const { GravatarUpdater } = require('./gravatar-updater');
+const { GravatarService } = require('./services/gravatar.service');
 const { AvbxTwitterClient } = require('avatarbox.sdk');
 const { TwitterService } = require('./services/twitter.service');
 
@@ -15,8 +15,8 @@ const handler = (event) => {
       if(!record.body) return;
       const [ id, source ] = record.body.split(',');
       if(/gravatar/.test(source)){
-        const gravatarUpdater = new GravatarUpdater();
-        return await gravatarUpdater.update(id);
+        const gravatarService = new GravatarService();
+        return await gravatarService.update(id);
       } else {
         const client = new AvbxTwitterClient();
         const profile = await client.fetch(id.toString());

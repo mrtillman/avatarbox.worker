@@ -5,9 +5,9 @@ const {
   LoadNextImageUseCase 
 } = require('avatarbox.sdk');
 
-const PusherService = require('./services/pusher.service');
+const PusherService = require('./pusher.service');
 
-class GravatarUpdater {
+class GravatarService {
   constructor(){
     this.avbx = new AvbxGravatarClient();
     this.useCase = new LoadNextImageUseCase();
@@ -54,4 +54,4 @@ class GravatarUpdater {
   }
 }
 
-module.exports = { GravatarUpdater };
+module.exports = { GravatarService };
