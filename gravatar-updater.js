@@ -1,9 +1,11 @@
+// TODO: convert to service; clean up / refactor using DDD
+ 
 const { 
   AvbxGravatarClient, 
   LoadNextImageUseCase 
 } = require('avatarbox.sdk');
 
-const PusherClient = require('./pusher.client');
+const PusherService = require('./services/pusher.service');
 
 class GravatarUpdater {
   constructor(){
@@ -14,10 +16,10 @@ class GravatarUpdater {
   update(id){
     const { avbx, useCase } = this;
     return avbx.fetch(id)
-          .then(loadNextImg)
-          .then(getResult.bind(this))
-          .then(resetAvbxIcon)
-          .then(sendPusherNotification)
+           .then(loadNextImg)
+           .then(getResult.bind(this))
+           .then(resetAvbxIcon)
+           .then(sendPusherNotification)
           .catch(handleError.bind(this));
     function loadNextImg(client) {
       if(!client) throw new Error(`user \"${id}\" not found`);
@@ -27,6 +29,7 @@ class GravatarUpdater {
     function getResult(result) {
       this.shouldNotifyUser = false;
       return {
+        id,
         imageUrl: `${result.url.replace("http:", "https:")}?size=450`,
         emailHash: useCase.client.emailHash,
         email: useCase.client.email
@@ -37,7 +40,7 @@ class GravatarUpdater {
       return result;
     }
     function sendPusherNotification(result){
-      const pusher = new PusherClient(result.emailHash);
+      const pusher = new PusherService(result.emailHash);
       pusher.send("Your Gravatar was updated!");
     }
     function handleError(err){

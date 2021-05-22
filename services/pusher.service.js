@@ -1,7 +1,7 @@
 require("dotenv").config();
 const Pusher = require("pusher");
 
-class PusherClient {
+class PusherService {
   constructor(channelId) {
     this.channelId = channelId;
     this.eventName = "update-event";
@@ -18,4 +18,4 @@ class PusherClient {
   }
 }
 
-module.exports = PusherClient;
+module.exports = PusherService;
