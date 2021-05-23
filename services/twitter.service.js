@@ -1,4 +1,3 @@
-// TODO: clean up / refactor using DDD
 require('dotenv').config();
 const consumerKey = process.env.TWITTER_CONSUMER_KEY;
 const consumerSecret = process.env.TWITTER_CONSUMER_SECRET;
@@ -11,7 +10,9 @@ const httpMethod = 'POST',
 url = 'https://api.twitter.com/1.1/account/update_profile_image.json';
 
 class TwitterService {
-  constructor(token, tokenSecret){
+  constructor(profile){
+    const { token, tokenSecret } = profile;
+    this.profile = profile;
     this.parameters = {
         oauth_consumer_key : consumerKey,
         oauth_nonce : v4(),
@@ -22,7 +23,13 @@ class TwitterService {
     },
     this.encodedSignature = oauthSignature.generate(httpMethod, url, this.parameters, consumerSecret, tokenSecret);
   }
-  async updateProfileIcon(imageUrl){
+  get imageUrl(){
+    const { profile } = this;
+    const index = (profile.currentAvatarIndex + 1) % profile.avatars.length;
+    return profile.avatars[index];
+  }
+  async updateProfileIcon(){
+    const { imageUrl } = this;
     const { parameters, encodedSignature } = this;
     const body = new FormData();
     const response = await fetch(imageUrl);

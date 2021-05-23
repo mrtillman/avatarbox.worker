@@ -1,5 +1,3 @@
-// TODO: convert to service; clean up / refactor using DDD
- 
 const { 
   AvbxGravatarClient, 
   LoadNextImageUseCase 
@@ -20,7 +18,7 @@ class GravatarService {
            .then(getResult.bind(this))
            .then(resetAvbxIcon)
            .then(sendPusherNotification)
-          .catch(handleError.bind(this));
+           .catch(handleError.bind(this));
     function loadNextImg(client) {
       if(!client) throw new Error(`user \"${id}\" not found`);
       useCase.client = client;
