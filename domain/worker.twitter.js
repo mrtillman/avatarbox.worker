@@ -1,6 +1,7 @@
 const { Worker } = require('./worker');
 const { AvbxTwitterClient } = require('avatarbox.sdk');
 const { TwitterService } = require('../services/twitter.service');
+const PusherService = require('../services/pusher.service');
 
 class TwitterWorker extends Worker {
   constructor(id, source){
@@ -13,6 +14,8 @@ class TwitterWorker extends Worker {
     const twitterService = new TwitterService(profile);
     await twitterService.updateProfileIcon();
     await client.reset({ id, imageUrl: twitterService.imageUrl });
+    const pusher = new PusherService(id);
+    pusher.send("Your Twitter icon was updated!");
   }
 }
 
