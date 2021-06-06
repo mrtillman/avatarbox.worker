@@ -1,5 +1,5 @@
-const { GravatarWorker } = require('../domain/worker.gravatar');
-const { TwitterWorker } = require('../domain/worker.twitter');
+const { GravatarWorker } = require('../application/worker.gravatar');
+const { TwitterWorker } = require('../application/worker.twitter');
 
 class WorkerFactory {
   getWorker(id, source){
